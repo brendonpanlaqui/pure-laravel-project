@@ -1,0 +1,9 @@
+.navbar-toggler-icon{
+    filter:invert();
+}
+.bg-custom {
+    background-image: url('../images/doodad.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
