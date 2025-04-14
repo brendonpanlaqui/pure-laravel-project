@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\WorkerController;
 use App\Models\Job;
 
 /*
@@ -55,10 +56,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 // Worker Dashboard
 Route::middleware(['auth', 'role:worker'])->group(function () {
-    Route::get('/worker-dashboard', function () {
-        $jobs = Job::where('status', 'open')->get();
-        return view('worker.dashboard', compact('jobs'));
-    })->name('worker.dashboard');
+    Route::get('/worker-dashboard', [WorkerController::class, 'dashboard'])->name('worker.dashboard');
 
     // Job Applications
     Route::post('/jobs/{job}/apply', [JobApplicationController::class, 'apply'])->name('jobs.apply');

@@ -58,9 +58,8 @@ class AdminController extends Controller
     }
 
     // Manage Applications
-    public function manageApplications()
-    {
-        $applications = JobApplication::all();
+    public function manageApplications() {
+        $applications = JobApplication::with(['job', 'worker'])->get();
         return view('admin.applications.index', compact('applications'));
     }
 

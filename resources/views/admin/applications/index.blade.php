@@ -18,7 +18,7 @@
             @foreach ($applications as $application)
             <tr>
                 <td>{{ $application->job->title }}</td>
-                <td>{{ $application->user->name }}</td>
+                <td>{{ $application->worker->name }}</td>
                 <td>{{ $application->status }}</td>
                 <td>
                     <a href="{{ route('admin.applications.view', $application) }}" class="btn btn-info btn-sm">View</a>

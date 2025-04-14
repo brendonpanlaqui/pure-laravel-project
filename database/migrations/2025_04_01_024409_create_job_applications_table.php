@@ -13,6 +13,7 @@ return new class extends Migration {
             $table->text('cover_letter')->nullable();
             $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
             $table->timestamps();
+            $table->unique(['worker_id', 'job_id']);
         });
     }
 

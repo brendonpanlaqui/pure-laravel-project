@@ -16,26 +16,72 @@
     </div>
 
     <div class="mt-4">
-        <h3>Available Jobs</h3>
-        @if($jobs->count() > 0)
-            <ul class="list-group">
-                @foreach($jobs as $job)
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <a href="{{ route('jobs.show', $job->id) }}">{{ $job->title }}</a>
-                            <span class="text-muted"> - {{ $job->location }}</span>
-                        </div>
-                        <form action="{{ route('jobs.apply', $job->id) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-primary btn-sm">Apply Now</button>
-                        </form>
-                    </li>
-                @endforeach
-            </ul>
-        @else
-            <p>No jobs available at the moment.</p>
-        @endif
-    </div>
-    
+        <h2 class="mb-4">Available Jobs</h2>
+        <form method="GET" action="{{ route('worker.dashboard') }}" class="row g-3 mb-4">
+            <div class="col-md-4">
+                <input type="text" name="search" class="form-control" placeholder="Search by title..." value="{{ request('search') }}">
+            </div>
+            <div class="col-md-4">
+                <select name="category" class="form-select">
+                    <option value="all">All Categories</option>
+                    @foreach($categories as $category)
+                        <option value="{{ $category }}" {{ request('category') == $category ? 'selected' : '' }}>
+                            {{ ucfirst($category) }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Filter</button>
+            </div>
+            <div class="col-md-2">
+                <a href="{{ route('worker.dashboard') }}" class="btn btn-secondary w-100">Reset</a>
+            </div>
+        </form>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Location</th>
+                    <th>Salary</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($jobs as $job)
+                <tr>
+                    <td><a href="{{ route('jobs.show', $job->id) }}">{{ $job->title }}</a></td>
+                    <td>{{ $job->category }}</td>
+                    <td>{{ $job->location }}</td>
+                    <td>₱{{ number_format($job->salary) }}</td>
+                    @php
+                        $hasApplied = \App\Models\JobApplication::where('job_id', $job->id)
+                                    ->where('worker_id', Auth::id())
+                                    ->exists();
+                    @endphp
+                    <td>
+                        @if (!$hasApplied)
+                            <form action="{{ route('jobs.apply', $job) }}" method="POST">
+                                @csrf
+                                <button class="btn btn-success btn-sm">Apply</button>
+                            </form>
+                        @else
+                            <span class="badge bg-secondary">Already Applied</span>
+                        @endif
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="5" class="text-center">No jobs found.</td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-center">
+            {{ $jobs->links() }}
+        </div>
 </div>
 @endsection

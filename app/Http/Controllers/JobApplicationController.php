@@ -13,6 +13,13 @@ class JobApplicationController extends Controller {
         $request->validate([
             'cover_letter' => 'nullable|string',
         ]);
+
+        // Check if the use has already applied to this job
+        $alreadyApplied = JobApplication::where('job_id', $job->id)->where('worker_id', Auth::id())->exists();
+
+        if ($alreadyApplied) {
+            return redirect()->route('worker.dashboard')->with('error', 'You have already applied for this job.');
+        }
     
         JobApplication::create([
             'job_id' => $job->id,
@@ -21,7 +28,7 @@ class JobApplicationController extends Controller {
             'status' => 'pending',
         ]);
     
-        return redirect()->back()->with('success', 'Application submitted!');
+        return redirect()->route('worker.dashboard')->with('success', 'Application submitted!');
     }
     
     public function employerViewApplications(Job $job) {

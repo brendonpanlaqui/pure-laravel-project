@@ -38,8 +38,9 @@ class LoginController extends Controller
                 return redirect('/employer-dashboard');
             } elseif ($user->role === 'worker') {
                 return redirect('/worker-dashboard');
+            } elseif ($user->role === 'admin') {
+                return redirect('/admin-dashboard');
             }
-            return redirect('/home');
         }
         //redirect with error
         return back()->withErrors(['email' => 'Invalid login details.']);

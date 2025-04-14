@@ -10,8 +10,8 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -29,9 +29,6 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="{{ url('/') }}">Home</a>
-                        </li>
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
@@ -45,25 +42,34 @@
                                     <a class="nav-link text-primary" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
+                            <li class="nav-item">
+                            <a class="nav-link text-light" href="{{ url('/') }}">Home</a>
+                            </li>
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('profile.index') }}">{{ __('Profile') }}</a>
+                                <a class="nav-link text-light" href="{{ route('profile.index') }}">{{ __('Profile') }}</a>
                             </li>
                             <!-- Admin Dashboard Link (Visible Only to Admins) -->
-                             @if (Auth::check() && Auth::user()->role === 'admin')
+                            @if (Auth::check() && Auth::user()->role === 'admin')
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
+                                    <a class="nav-link text-light" href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
                                 </li>
                             @endif
 
                             <!-- Employer Dashboard (Visible Only to Employers) -->
                             @if (Auth::check() && Auth::user()->role === 'employer')
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('employer.dashboard') }}">{{ __('Post Jobs') }}</a>
+                                    <a class="nav-link text-light" href="{{ route('employer.dashboard') }}">{{ __('Post Jobs') }}</a>
+                                </li>
+                            @endif
+                            <!-- Worker Dashboard (Visible Only to Workers) -->
+                            @if (Auth::check() && Auth::user()->role === 'worker')
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" href="{{ route('worker.dashboard') }}">{{ __('Worker Dashboard') }}</a>
                                 </li>
                             @endif
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 

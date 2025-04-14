@@ -18,7 +18,9 @@ class JobController extends Controller
     }
 
     public function show(Job $job) {   
-        return view('jobs.show', compact('job'));
+        $hasApplied = \App\Models\JobApplication::where('job_id', $job->id)->where('worker_id', Auth::id())->exists();
+
+        return view('jobs.show', compact('job', 'hasApplied'));
     }   
 
 
