@@ -21,6 +21,17 @@
                 </div>
                 <button type="submit" class="btn btn-success">Apply</button>
             </form>
+            <form action="{{ route('report.store') }}" method="POST">
+                @csrf
+                <input type="hidden" name="reportable_id" value="{{ $job->id }}">
+                <input type="hidden" name="reportable_type" value="App\Models\Job">
+                
+                <div class="mb-2">
+                    <label for="reason">Reason for reporting:</label>
+                    <textarea name="reason" class="form-control" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-danger btn-sm">Report Job</button>
+            </form>
         @endif
     @endif
 

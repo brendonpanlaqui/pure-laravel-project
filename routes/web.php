@@ -9,6 +9,8 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\WorkerController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\ReportController;
 use App\Models\Job;
 
 /*
@@ -51,6 +53,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/', [AdminController::class, 'manageApplications'])->name('index');
         Route::get('{application}', [AdminController::class, 'viewApplication'])->name('view');
         Route::put('{application}/status', [AdminController::class, 'updateApplicationStatus'])->name('update');
+    });
+
+    // Report Management
+    Route::prefix('admin/reports')->name('admin.reports.')->group(function () {
+        Route::get('/', [AdminController::class, 'manageReports'])->name('index');
+        Route::get('{report}', [AdminController::class, 'viewReport'])->name('view');
+        Route::delete('{report}', [AdminController::class, 'deleteReport'])->name('delete');
+        Route::put('{report}/status', [AdminController::class, 'updateReportStatus'])->name('status');
     });
 });
 
@@ -97,6 +107,20 @@ Auth::routes();
 Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])
     ->middleware('guest')
     ->name('password.email');
+
+// Messages
+Route::middleware(['auth'])->group(function () {
+    // Display the list of messages or conversations
+    Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
+    // Fetch conversation history with a specific user
+    Route::get('/messages/{userId}', [MessageController::class, 'show'])->name('messages.show');
+    // Send a new message
+    Route::post('/messages/send/{userId}', [MessageController::class, 'send'])->name('messages.send');
+});
+
+// Reports
+Route::middleware(['auth'])->post('/report', [ReportController::class, 'store'])->name('report.store');
+
 
 /* 
 use App\Http\Controllers\Auth\RegisterController;

@@ -2,12 +2,9 @@
 
 @section('content')
 <div class="container">
-    <h2>Job Listings</h2>
-
-    <!-- Show Post Job button only for Employers -->
-    @if(Auth::user()->role === 'employer')
-        <a href="{{ route('jobs.create') }}" class="btn btn-primary mb-3">Post a Job</a>
-    @endif
+    @foreach ($jobs as $job)
+    <h2 id="projectStatusTitle">{{ ucfirst($job->status) }} Projects</h2>
+    @endforeach
 
     <div class="row">
         @foreach ($jobs as $job)
@@ -26,3 +23,4 @@
     </div>
 </div>
 @endsection
+<script src="{{ asset('js/projects.js') }}"></script>

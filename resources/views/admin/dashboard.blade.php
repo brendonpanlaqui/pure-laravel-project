@@ -38,6 +38,17 @@
                 </div>
             </div>
         </div>
+
+        <!-- Manage Reports -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Manage Applications</h5>
+                    <p class="card-text">View reports</p>
+                    <a href="{{ route('admin.reports.index') }}" class="btn btn-primary">Go to Reports</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

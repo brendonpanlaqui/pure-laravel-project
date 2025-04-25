@@ -1,33 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="bg-light min-vh-100">
-        <header class="text-dark text-start py-3 pt-md-5">
-            <div class="container d-flex flex-column">
-                <div class="col-7 col-md-12">
-                    <h1 class="d-none d-md-flex justify-content-md-center display-4 fw-bold">
-                        <span class="text-primary">Opportunities&nbsp;</span> <span>lie here.</span>
-                    </h1>
-                    <h2 class="d-md-none display-5 fw-bold">
-                        <span class="text-primary">Opportunities&nbsp;</span> <span>lie here.</span>
-                    </h2>
-                </div>
-                <div class="col-12">
-                    <p class="d-none d-md-flex justify-content-md-center">
-                        Don't have an account yet?&nbsp;
-                        <a class="text-dark" href="{{ route('register') }}"><span>Let's sign you up</span></a>.
-                    </p>
-                    <p class="d-md-none">
-                        Don't have an account yet?&nbsp;
-                        <a class="text-dark" href="{{ route('register') }}"><span>Let's sign you up</span></a>.
-                    </p>
-                </div>
+    <header class="text-dark pt-5 pb-3 mt-4 mt-md-5">
+        <div class="container d-flex flex-column">
+            <div class="col-12">
+                <h2 class="display-4 fw-bold text-start text-md-center">Login to your account</h2>
+                <p class="text-md-center">
+                    Don't have an account?&nbsp;
+                    <a class="text-dark" href="{{ route('register') }}"><span>Join now</span></a>
+                </p>
             </div>
-        </header>
+        </div>
+    </header>
 
-        <button type="button" onclick="window.history.back()" class="btn btn-light position-absolute top-0 end-0 m-3 border-0 fs-4" aria-label="Close">
-            <i class="bi bi-x-lg"></i>
-        </button>
+
 
         <!-- Desktop -->
         <div class="d-flex justify-content-center py-md-5 d-none d-md-flex">
@@ -63,7 +49,7 @@
                                 </div>
                             @endif
                             <div class="mb-3">
-                                <button class="btn btn-primary w-100" type="submit">Login</button>
+                                <button class="btn btn-danger w-100" type="submit">Login</button>
                             </div>
                         </div>
 

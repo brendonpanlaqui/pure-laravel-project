@@ -5,54 +5,47 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Job;
 use App\Models\JobApplication;
+use App\Models\Report;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
     // Manage Users
-    public function manageUsers()
-    {
+    public function manageUsers() {
         $users = User::all();
         return view('admin.users.index', compact('users'));
     }
 
-    public function editUser(User $user)
-    {
+    public function editUser(User $user) {
         return view('admin.users.edit', compact('user'));
     }
 
-    public function updateUser(Request $request, User $user)
-    {
+    public function updateUser(Request $request, User $user) {
         $user->update($request->all());
         return redirect()->route('admin.users')->with('success', 'User updated successfully.');
     }
 
-    public function deleteUser(User $user)
-    {
+    public function deleteUser(User $user) {
         $user->delete();
         return redirect()->route('admin.users')->with('success', 'User deleted successfully.');
     }
 
     // Manage Jobs
-    public function manageJobs()
-    {
+    public function manageJobs() {
         $jobs = Job::all();
         return view('admin.jobs.index', compact('jobs'));
     }
 
-    public function editJob(Job $job)
-    {
+    public function editJob(Job $job) {
         return view('admin.jobs.edit', compact('job'));
     }
 
-    public function updateJob(Request $request, Job $job)
-    {
+    public function updateJob(Request $request, Job $job) {
         $job->update($request->all());
         return redirect()->route('admin.jobs')->with('success', 'Job updated successfully.');
     }
 
-    public function deleteJob(Job $job)
-    {
+    public function deleteJob(Job $job) {
         $job->delete();
         return redirect()->route('admin.jobs')->with('success', 'Job deleted successfully.');
     }
@@ -63,15 +56,40 @@ class AdminController extends Controller
         return view('admin.applications.index', compact('applications'));
     }
 
-    public function viewApplication(JobApplication $application)
-    {
+    public function viewApplication(JobApplication $application) {
         return view('admin.applications.view', compact('application'));
     }
 
-    public function updateApplicationStatus(Request $request, JobApplication $application)
-    {
+    public function updateApplicationStatus(Request $request, JobApplication $application) {
         $application->status = $request->status;
         $application->save();
         return redirect()->route('admin.applications')->with('success', 'Application status updated.');
     }
+
+    // Manage Reports
+    public function manageReports() {
+        $reports = Report::with('reporter', 'reportable')->latest()->paginate(10);
+        return view('admin.reports.index', compact('reports'));
+    }
+
+    public function viewReport(Report $report) {
+        $report->load('reporter', 'reportable');
+        return view('admin.reports.view', compact('report'));
+    }
+
+    public function deleteReport(Report $report) {
+        $report->delete();
+        return redirect()->route('admin.reports.index')->with('success', 'Report deleted successfully.');
+    }
+
+    public function updateReportStatus(Request $request, Report $report) {
+        $request->validate([
+            'status' => 'required|in:Pending,Reviewed,Resolved',
+        ]);
+
+        $report->update(['status' => $request->status]);
+
+        return back()->with('success', 'Report status updated.');
+    }
+
 }

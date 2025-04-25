@@ -15,11 +15,15 @@ return new class extends Migration
             $table->id();
             $table->foreignId('employer_id')->constrained('users')->onDelete('cascade');
             $table->string('title');
-            $table->string('category')->nullable();
-            $table->text('description');
-            $table->string('location');
+            $table->string('category');
+            $table->enum('type', ['Online', 'Offline']);
+            $table->string('platform')->nullable();
+            $table->string('location')->nullable();
+            $table->string('time_estimate');
+            $table->enum('expertise_level', ['Entry', 'Immediate', 'Expert']);
             $table->decimal('salary', 10, 2)->nullable();
-            $table->enum('status', ['open', 'closed'])->default('open');
+            $table->text('description');
+            $table->enum('status', ['open', 'ongoing', 'completed'])->default('open');
             $table->timestamps();
         });
     }

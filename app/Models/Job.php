@@ -9,14 +9,20 @@ class Job extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
+     protected $fillable = [
         'employer_id',
         'title',
-        'description',
+        'category',
+        'type',
+        'platform',
         'location',
+        'time_estimate',
+        'expertise_level',
         'salary',
-        'status'
+        'description',
+        'status',
     ];
+    
 
     public function employer() {
         return $this->belongsTo(User::class, 'employer_id');
@@ -25,4 +31,8 @@ class Job extends Model
     public function applications() {
         return $this->hasMany(JobApplication::class);
     }    
+
+    public function reports() {
+        return $this->morphMany(Report::class, 'reportable');
+    }
 }

@@ -1,29 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-<body class="bg-light">
-    <header class="text-dark text-start py-3 pt-md-5">
+    <header class="text-dark pt-5 pb-3 mt-4 mt-md-5">
         <div class="container d-flex flex-column">
-            <div class="col-7 col-md-12">
-                <h1 class="d-none d-md-flex justify-content-md-center display-4 fw-bold"><span>Join the&nbsp;</span> <span class="text-primary">Community.</span></h1>
-                <h2 class="d-md-none display-5 fw-bold"><span>Join the&nbsp;</span> <span class="text-primary">Community.</span></h2>
-            </div>
             <div class="col-12">
-                <p class="d-none d-md-flex justify-content-md-center">
-                    Already a part of us?&nbsp;
-                    <a class="text-dark" href="{{ route('login') }}"><span>Let's login to your account, then</span></a>.
-                </p>
-                <p class="d-md-none">
-                    Already a part of us?&nbsp;
-                    <a class="text-dark" href="{{ route('login') }}"><span>Let's login to your account, then</span></a>.
+                <h2 class="display-4 fw-bold text-start text-md-center">Join the Community</h2>
+                <p class="text-md-center">
+                    Already have an account?&nbsp;
+                    <a class="text-dark" href="{{ route('login') }}"><span>Let's login</span></a>
                 </p>
             </div>
         </div>
     </header>
-
-    <button type="button" onclick="window.history.back()" class="btn btn-light position-absolute top-0 end-0 m-3 border-0 fs-4" aria-label="Close">
-        <i class="bi bi-x-lg"></i>
-    </button>
 
     <!-- Desktop Card -->
     <div class="d-flex justify-content-center py-md-5 d-none d-md-flex">
@@ -35,9 +23,15 @@
                     @csrf
 
                     <div class="mb-3">
-                        <label for="name" class="form-label fw-bold">Name</label>
-                        <input type="text" class="form-control border-dark fw-bold @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required>
-                        @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        <label for="name" class="form-label fw-bold">First Name</label>
+                        <input type="text" class="form-control border-dark fw-bold @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}" required>
+                        @error('first_name') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label fw-bold">Last Name</label>
+                        <input type="text" class="form-control border-dark fw-bold @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required>
+                        @error('last_name') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
 
                     <div class="mb-3">
@@ -76,8 +70,8 @@
                         @error('role') <div class="text-danger">{{ $message }}</div> @enderror
                     </div>
 
-                    <div class="mb-3">
-                        <button class="btn btn-primary w-100" type="submit">Register</button>
+                    <div class="d-flex my-5 justify-content-center">
+                        <button type="submit" class="btn btn-danger w-75">Create my Account</button>
                     </div>
                 </form>
             </div>
@@ -145,5 +139,4 @@
             input.type = input.type === 'password' ? 'text' : 'password';
         }
     </script>
-</body>
 @endsection
