@@ -1,0 +1,21 @@
+.sent {
+    background-color: #d1ffd6;
+    text-align: right;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.received {
+    background-color: #f1f1f1;
+    text-align: left;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+#messageHistory {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
