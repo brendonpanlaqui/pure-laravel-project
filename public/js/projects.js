@@ -3,8 +3,7 @@ const projectStatus = urlParams.get('status') || 'open';
 document.getElementById('projectStatusTitle').innerHTML = 
     `${projectStatus.charAt(0).toUpperCase() + projectStatus.slice(1)} Projects`;
 
-const allProjects = [
-    {
+const allProjects = [{
         title: "I need a Logo designer",
         category:"Online Logo Design",
         type: "Online",

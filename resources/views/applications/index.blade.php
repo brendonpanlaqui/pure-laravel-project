@@ -6,11 +6,8 @@
     <ul class="list-group">
         @foreach($applications as $application)
             <li class="list-group-item">
-<<<<<<< HEAD
                 <strong>{{ $application->worker->first_name }} {{ $application->worker->last_name }}</strong> - {{ $application->status }}
-=======
-                <strong>{{ $application->worker->name }}</strong> - {{ $application->status }}
->>>>>>> 3f2023a55b4afca19324decb3b459dae794f861d
+
                 <p>{{ $application->cover_letter }}</p>
 
                 <form action="{{ route('applications.update', $application) }}" method="POST">

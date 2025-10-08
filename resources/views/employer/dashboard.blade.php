@@ -54,7 +54,6 @@
                     
                 </div>
 
-<<<<<<< HEAD
                 @foreach ($jobs as $job)
                 <div class="col-12 col-md-3 mb-3">
                     <a href="{{ route('jobs.applications', $job->id) }}" class="text-decoration-none">
@@ -66,18 +65,7 @@
                     </a>
                 </div>
                 @endforeach
-=======
-                <div class="col-12 col-md-3 mb-3">
-                    <a href="applicant.html" class="text-decoration-none">
-                        <div class="card bg-secondary shadow-sm">
-                            <div class="card-body">
-                                <h4 class="card-title text-white">View Applicants</h4>
-                            </div>
-                        </div>
-                    </a>
-                    
-                </div>
->>>>>>> 3f2023a55b4afca19324decb3b459dae794f861d
+
             </div>
         </div>
     </header>
